@@ -307,7 +307,8 @@ def create_visualizations(merged_df: pd.DataFrame):
     print("\nGenerating visualizations...")
     
     # Set visualization style
-    sns.set_style(PLOT_STYLE['style'])
+    plt.style.use('default')  # Use default style as base
+    sns.set_theme(style="whitegrid")  # Set seaborn style to whitegrid
     sns.set_palette(PLOT_STYLE['palette'])
 
     # Create main analysis plots
@@ -318,7 +319,10 @@ def create_visualizations(merged_df: pd.DataFrame):
 
 def create_main_analysis_plots(merged_df: pd.DataFrame):
     """Create the main set of analysis plots"""
+    # Create figure with white background
     fig = plt.figure(figsize=PLOT_STYLE['figsize'])
+    fig.patch.set_facecolor('white')
+    plt.gca().set_facecolor('white')  # Set axes background to white
 
     # 1. Top 5 students bar chart
     plt.subplot(2, 2, 1)
@@ -329,6 +333,7 @@ def create_main_analysis_plots(merged_df: pd.DataFrame):
         plt.xticks(rotation=45, ha='right')
         plt.title('Top 5 Students - Weighted Percentages')
         plt.ylabel('Weighted Percentage (%)')
+        plt.gca().set_facecolor('white')  # Set subplot background to white
 
     # 2. Performance categories pie chart
     plt.subplot(2, 2, 2)
@@ -338,6 +343,7 @@ def create_main_analysis_plots(merged_df: pd.DataFrame):
         plt.pie(performance_dist, labels=performance_dist.index, autopct='%1.1f%%',
                 colors=colors, explode=[0.05] * len(performance_dist))
         plt.title('Performance Categories Distribution')
+        plt.gca().set_facecolor('white')  # Set subplot background to white
 
     # 3. Test scores distribution
     plt.subplot(2, 2, 3)
@@ -350,6 +356,7 @@ def create_main_analysis_plots(merged_df: pd.DataFrame):
         plt.xticks(rotation=45)
         plt.xlabel('')
         plt.ylabel('Scores')
+        plt.gca().set_facecolor('white')  # Set subplot background to white
 
     # 4. Attendance vs Performance correlation
     plt.subplot(2, 2, 4)
@@ -363,16 +370,26 @@ def create_main_analysis_plots(merged_df: pd.DataFrame):
         plt.title('Attendance vs Performance Correlation')
         plt.xlabel('Attendance Percentage (%)')
         plt.ylabel('Weighted Percentage (%)')
+        plt.gca().set_facecolor('white')  # Set subplot background to white
 
     plt.tight_layout()
-    plt.show()
-    plt.savefig('plots/main_analysis.png', dpi=PLOT_STYLE['dpi'], bbox_inches='tight')
+    
+    # Save with white background
+    plt.savefig('plots/main_analysis.png', 
+                dpi=PLOT_STYLE['dpi'], 
+                bbox_inches='tight',
+                facecolor='white',
+                edgecolor='none')
     plt.close()
 
 def create_additional_analysis_plots(merged_df: pd.DataFrame):
     """Create additional analysis plots"""
     # 1. Performance trends
     plt.figure(figsize=(12, 6))
+    fig = plt.gcf()
+    fig.patch.set_facecolor('white')
+    plt.gca().set_facecolor('white')
+    
     test_data = merged_df[['Mini Test 1', 'Mini Test 2', 'Live Test', 'Assignment']]
     if not test_data.empty:
         test_data_melted = pd.melt(test_data)
@@ -383,12 +400,19 @@ def create_additional_analysis_plots(merged_df: pd.DataFrame):
         plt.xlabel('')
         plt.ylabel('Average Score')
         plt.grid(True, alpha=0.3)
-        plt.show()
-        plt.savefig('plots/performance_trends.png', dpi=PLOT_STYLE['dpi'], bbox_inches='tight')
+        plt.savefig('plots/performance_trends.png', 
+                   dpi=PLOT_STYLE['dpi'], 
+                   bbox_inches='tight',
+                   facecolor='white',
+                   edgecolor='none')
         plt.close()
 
     # 2. Correlation heatmap
     plt.figure(figsize=(10, 8))
+    fig = plt.gcf()
+    fig.patch.set_facecolor('white')
+    plt.gca().set_facecolor('white')
+    
     numerical_cols = ['Mini Test 1', 'Mini Test 2', 'Live Test', 'Assignment', 
                      'Attendance Percentage', 'Weighted Percentage']
     correlation_matrix = merged_df[numerical_cols].corr()
@@ -396,20 +420,30 @@ def create_additional_analysis_plots(merged_df: pd.DataFrame):
                 fmt='.2f', square=True)
     plt.title('Correlation Matrix of Performance Metrics')
     plt.tight_layout()
-    plt.show()
-    plt.savefig('plots/correlation_matrix.png', dpi=PLOT_STYLE['dpi'], bbox_inches='tight')
+    plt.savefig('plots/correlation_matrix.png', 
+                dpi=PLOT_STYLE['dpi'], 
+                bbox_inches='tight',
+                facecolor='white',
+                edgecolor='none')
     plt.close()
 
     # 3. Score distributions
     plt.figure(figsize=(15, 5))
+    fig = plt.gcf()
+    fig.patch.set_facecolor('white')
+    
     for i, col in enumerate(['Mini Test 1', 'Mini Test 2', 'Live Test', 'Assignment']):
         plt.subplot(1, 4, i+1)
         sns.kdeplot(data=merged_df, x=col, fill=True)
         plt.title(f'{col} Distribution')
         plt.xlabel('Score')
+        plt.gca().set_facecolor('white')
     plt.tight_layout()
-    plt.show()
-    plt.savefig('plots/score_distributions.png', dpi=PLOT_STYLE['dpi'], bbox_inches='tight')
+    plt.savefig('plots/score_distributions.png', 
+                dpi=PLOT_STYLE['dpi'], 
+                bbox_inches='tight',
+                facecolor='white',
+                edgecolor='none')
     plt.close()
 
     # 4. Box plots for each test
@@ -419,6 +453,7 @@ def create_box_plots(merged_df: pd.DataFrame):
     """Create box plots for each test to visualize score distribution and outliers"""
     # Create a figure with subplots for each test
     fig, axes = plt.subplots(2, 2, figsize=(15, 12))
+    fig.patch.set_facecolor('white')
     fig.suptitle('Box Plots of Test Scores', fontsize=16, y=0.95)
 
     # List of tests to plot
@@ -438,6 +473,7 @@ def create_box_plots(merged_df: pd.DataFrame):
         # Customize the plot
         axes[row, col].set_title(f'{test} Score Distribution')
         axes[row, col].set_ylabel('Score')
+        axes[row, col].set_facecolor('white')  # Set subplot background to white
         
         # Add statistical summary
         stats_text = f"Mean: {merged_df[test].mean():.1f}\n"
@@ -452,12 +488,19 @@ def create_box_plots(merged_df: pd.DataFrame):
                           bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
 
     plt.tight_layout()
-    plt.show()
-    plt.savefig('plots/box_plots.png', dpi=PLOT_STYLE['dpi'], bbox_inches='tight')
+    plt.savefig('plots/box_plots.png', 
+                dpi=PLOT_STYLE['dpi'], 
+                bbox_inches='tight',
+                facecolor='white',
+                edgecolor='none')
     plt.close()
 
     # Create a combined box plot for all tests
     plt.figure(figsize=(12, 6))
+    fig = plt.gcf()
+    fig.patch.set_facecolor('white')
+    plt.gca().set_facecolor('white')
+    
     test_data = merged_df[['Mini Test 1', 'Mini Test 2', 'Live Test', 'Assignment']]
     test_data_melted = pd.melt(test_data)
     
@@ -485,8 +528,11 @@ def create_box_plots(merged_df: pd.DataFrame):
              bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
     
     plt.tight_layout()
-    plt.show()
-    plt.savefig('plots/combined_box_plots.png', dpi=PLOT_STYLE['dpi'], bbox_inches='tight')
+    plt.savefig('plots/combined_box_plots.png', 
+                dpi=PLOT_STYLE['dpi'], 
+                bbox_inches='tight',
+                facecolor='white',
+                edgecolor='none')
     plt.close()
 
     # Print outlier information
