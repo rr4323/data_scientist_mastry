@@ -1,49 +1,78 @@
-Create a Library Management System using Python. Below are the steps which you need to follow to create an end-to-end project for LMS. Here Librarian can add/modify/issue the books and can perform various other operation as listed in below steps. 
-Use Python concepts only for creating this project.
-Steps:
-Step 1: Basic Structure
-    1. Write a Python script that prints a welcome message for the Library Management System.
-    2. Define an initial list or dictionary to store books, with details like title, author, and availability.
-Example:
-library = {
-    "Python Basics": {"author": "Test", "available": True},
-    "Data Science": {"author": "Test1", "available": False}
-}
-    3. Write a function to display all the books with their details.
+# Library Management System
 
-Step 2: Adding Books
-    4. Create a function to allow a user to add a new book to the system. The function should:
-        ◦ Accept inputs for the title and author.
-        ◦ Check if the book already exists in the dictionary.
-        ◦ Add the book if it doesn’t exist.
+A Python-based Library Management System that allows librarians to manage books, track issued books, and perform various library operations.
 
-Step 3: Issuing Books
-    5. Create a function to issue a book. The function should:
-        ◦ Check if the book exists and is available.
-        ◦ Mark it as unavailable if issued and record the name of the person issuing it.
-    6. Modify the display function to show the current status of the book (Available or Issued).
+## Features
 
-Step 4: Returning Books
-    7. Create a function to return a book. The function should:
-        ◦ Check if the book exists and is currently issued.
-        ◦ Mark it as available again upon return.
+- User authentication with login system
+- View all books in the library
+- Add new books to the library
+- Issue books to borrowers
+- Return books to the library
+- View all currently issued books
+- Clean and user-friendly interface
 
-Step 5: Login System
-    8. Implement a login system:
-        ◦ Store usernames and passwords in a dictionary. You can have some predefined stored credentials like below:
-credentials = {"admin": "admin123", "librarian": "lib123"}
-        ◦ Prompt users to log in before accessing the system.
-        ◦ Allow up to 3 attempts before exiting.
+## Prerequisites
 
-Step 6: View Issued Books
-    9. Add a function to view all books that are currently issued, along with the name of the person who issued them.
+- Python 3.x
+- No additional dependencies required
 
-Step 7: Main Menu
-    10. Combine all the functions into a menu-driven program:
-        ◦ Use a while loop to display options like:
-            ▪ View Books
-            ▪ Add a Book
-            ▪ Issue a Book
-            ▪ Return a Book
-            ▪ View Issued Books
-            ▪ Exit
+## Installation
+
+1. Clone or download this repository
+2. Navigate to the project directory
+3. Run the program using Python:
+   ```bash
+   python library_system.py
+   ```
+
+## Usage
+
+### Login Credentials
+The system comes with two predefined user accounts:
+- Username: `admin`, Password: `admin123`
+- Username: `librarian`, Password: `lib123`
+
+### Available Operations
+
+1. **View Books**
+   - Displays all books in the library with their title, author, and availability status
+
+2. **Add a Book**
+   - Add new books to the library
+   - System checks for duplicate entries
+   - Requires book title and author information
+
+3. **Issue a Book**
+   - Issue books to borrowers
+   - Records borrower information
+   - Updates book availability status
+
+4. **Return a Book**
+   - Process book returns
+   - Updates book availability status
+   - Removes borrower information
+
+5. **View Issued Books**
+   - Display all currently issued books
+   - Shows borrower information for each issued book
+
+6. **Exit**
+   - Safely exit the program
+
+## Security Features
+
+- Login system with maximum 3 attempts
+- Input validation for all operations
+- Error handling for invalid operations
+
+## Data Structure
+
+The system uses the following data structures:
+- Dictionary for storing book information
+- Dictionary for user credentials
+- Dictionary for tracking issued books
+
+## Contributing
+
+Feel free to submit issues and enhancement requests.
