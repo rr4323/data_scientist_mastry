@@ -1,50 +1,168 @@
-Mini Project – Python Libraries
+# Student Performance Analysis System
 
-Project - Student Performance and Attendance Analysis
-Analyse student performance and attendance using attached excel file which has 2 tabs in the document. 
+A comprehensive data analysis system for evaluating student performance across multiple assessment components. This system provides detailed insights into student performance, attendance patterns, and overall academic progress.
 
-The goal is to:
-    1. Calculate total and percentage marks.
-    2. Derive attendance percentages.
-    3. Classify students based on performance.
-    4. Identify students with low attendance and highlight top performers.
-    5. Provide visual insights into the data.
+## Features
 
-Assignment Questions
-Data Preparation
-    1. Load the student marks and attendance data from the provided Excel files into two separate Pandas DataFrames.
-    2. Merge the two DataFrames on the Name column to create a single DataFrame.
-    3. Replace attendance values ('Y' or 'N') with numeric values (1 for 'Y' and 0 for 'N').
-    4. Deal with the missing values.
-    5. Do the column cleaning like name column is the combination of upper and lower case.
-Data Transformation
-    1. Create separate columns for below:
-        ◦ Total marks for each student.
-        ◦ Percentage marks for each student.
-        ◦ Attendance percentage for each student based on attendance columns.
-        ◦ Calculate the weighted percentage – Attendance(40%), Mini test01(10%), Mini test02(10%), Live test(20%), Assignment (20%).
-        ◦ Use this weighted percentage for further calculations.
-    2. Classify each student's performance into categories:
-        ◦ "Excellent" for percentages ≥ 85.
-        ◦ "Good" for percentages between 71 and 84.
-        ◦ "Average" for percentages between 50 and 70.
-        ◦ "Needs Improvement" for percentages < 50.
-Analysis
-    1. Identify students with attendance below 75% but weighted percentage >50%.
-    2. Highlight the top three students based on percentage marks.
-    3. Impact of attendance on Tests/Assignment marks. 
-Visualization
-    1. Create a bar chart displaying weighted percentages for top 5 students.
-    2. Create a pie chart showing the distribution of students across the four performance categories.
-    3. Create box plots for each test (Live Test, Mini Test 1, Mini Test 2, Assignment) to visualize the spread and detect potential outliers in scores.
-    4. Create a chart to show the students where attendance is less than 50%.
-    5. Any other visualization/analysis which you can infer from data for the management.
+- **Data Processing and Validation**
+  - Robust data cleaning and validation
+  - Handling of missing values and outliers
+  - Standardized name normalization
+  - Attendance tracking and validation
 
+- **Performance Analysis**
+  - Individual test performance analysis
+  - Weighted percentage calculations
+  - Performance categorization (Excellent, Good, Average, Needs Improvement)
+  - Attendance impact analysis
+  - Statistical analysis of test scores
 
+- **Visualization**
+  - Top performers analysis
+  - Performance distribution charts
+  - Attendance vs. Performance correlation
+  - Test score distributions
+  - Box plots for outlier detection
+  - Correlation heatmaps
 
-## requirements
-`
-    sudo apt-get update
-    sudo apt-get install python3-tk python3-qt5
-    pip install tk PyQt5 
-`
+- **Output Generation**
+  - Excel report with multiple sheets
+  - High-quality visualizations saved as PNG files
+  - Detailed statistical summaries
+  - Outlier analysis reports
+
+## Project Structure
+
+```
+advance_data_scientist/
+└── mini_project_2/
+    └── student_performance_analysis/
+        ├── student_analysis.py      # Main analysis script
+        ├── student.xlsx            # Input data file
+        ├── student_analysis_report.md  # Detailed analysis report
+        ├── plots/                  # Generated visualizations
+        │   ├── main_analysis.png
+        │   ├── performance_trends.png
+        │   ├── correlation_matrix.png
+        │   ├── score_distributions.png
+        │   ├── box_plots.png
+        │   └── combined_box_plots.png
+        └── student_analysis_results.xlsx  # Generated analysis report
+```
+
+## Input Data Format
+
+The system expects an Excel file (`student.xlsx`) with two sheets:
+
+1. **Marks Sheet**
+   - Student names
+   - Mini Test 1 scores (max 20)
+   - Mini Test 2 scores (max 20)
+   - Live Test scores (max 40)
+   - Assignment scores (max 20)
+
+2. **Attendance Sheet**
+   - Student names
+   - Attendance records for each session
+
+## Performance Calculation
+
+The system calculates performance using the following weights:
+- Mini Test 1: 20%
+- Mini Test 2: 20%
+- Live Test: 40%
+- Assignment: 20%
+
+Performance Categories:
+- Excellent: ≥ 85%
+- Good: ≥ 71%
+- Average: ≥ 50%
+- Needs Improvement: < 50%
+
+## Requirements
+
+- Python 3.10 or higher
+- Required packages:
+  - pandas
+  - numpy
+  - matplotlib
+  - seaborn
+  - scipy
+  - scikit-learn
+  - openpyxl (for Excel file handling)
+
+### Linux-Specific Requirements
+
+For Linux users, additional system packages are required for GUI support:
+
+```bash
+sudo apt-get update
+sudo apt-get install python3-tk python3-qt5
+pip install tk PyQt5
+```
+
+## Installation
+
+1. Navigate to the project directory:
+```bash
+cd advance_data_scientist/mini_project_2/student_performance_analysis
+```
+
+2. Create and activate a virtual environment:
+```bash
+python -m venv student
+source student/bin/activate  # On Linux/Mac
+# or
+student\Scripts\activate  # On Windows
+```
+
+3. Install required packages:
+```bash
+pip install -r requirements.txt
+```
+
+4. For Linux users, install additional system packages:
+```bash
+sudo apt-get update
+sudo apt-get install python3-tk python3-qt5
+pip install tk PyQt5
+```
+
+## Usage
+
+1. Prepare your input data in the required Excel format
+2. Run the analysis script:
+```bash
+python student_analysis.py
+```
+
+3. Check the generated outputs:
+   - `plots/` directory for visualizations
+   - `student_analysis_results.xlsx` for detailed analysis
+
+## Output Files
+
+1. **Visualizations** (`plots/` directory):
+   - `main_analysis.png`: Overview of key metrics
+   - `performance_trends.png`: Performance trends across tests
+   - `correlation_matrix.png`: Correlation between different metrics
+   - `score_distributions.png`: Distribution of scores for each test
+   - `box_plots.png`: Detailed box plots for each test
+   - `combined_box_plots.png`: Combined view of all test distributions
+
+2. **Analysis Reports**:
+   - `student_analysis_report.md`: Detailed markdown report with analysis findings and insights
+   - `student_analysis_results.xlsx`: Excel report with multiple sheets:
+     - Complete Data: Raw and processed data
+     - Statistics: Basic statistical measures
+     - Performance Categories: Distribution of performance levels
+     - Attendance Analysis: Attendance patterns and impact
+     - Correlations: Correlation matrix
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
