@@ -1,3 +1,6 @@
 [submodule "zomato_recommendation"]
 	path = zomato_recommendation
 	url = https://github.com/rr4323/zomato_recommendation_system.git
+[submodule "mobile_price_predictor"]
+	path = mobile_price_predictor
+	url = https://github.com/rr4323/mobile_price_predictor
