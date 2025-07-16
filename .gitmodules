@@ -4,3 +4,6 @@
 [submodule "mobile_price_predictor"]
 	path = mobile_price_predictor
 	url = https://github.com/rr4323/mobile_price_predictor
+[submodule "life_expectancy_predictor"]
+	path = life_expectancy_predictor
+	url = https://github.com/rr4323/life_expectancy_predictor.git
