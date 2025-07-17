@@ -7,3 +7,6 @@
 [submodule "life_expectancy_predictor"]
 	path = life_expectancy_predictor
 	url = https://github.com/rr4323/life_expectancy_predictor.git
+[submodule "income_classification"]
+	path = income_classification
+	url = https://github.com/rr4323/income_classification.git
