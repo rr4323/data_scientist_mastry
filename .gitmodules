@@ -10,3 +10,6 @@
 [submodule "income_classification"]
 	path = income_classification
 	url = https://github.com/rr4323/income_classification.git
+[submodule "langgraph_mastry"]
+	path = langgraph_mastry
+	url = https://github.com/rr4323/langgraph_mastry
