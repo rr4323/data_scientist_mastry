@@ -1,0 +1,78 @@
+name: Update Parent Repo from Submodules
+
+on:
+  # Trigger when parent repo is pushed to main
+  push:
+    branches:
+      - main
+  # Trigger via repository_dispatch from submodules
+  repository_dispatch:
+    types: [submodule-updated]
+  # Allow manual triggering
+  workflow_dispatch:
+  # Optional: run on a schedule to catch any missed updates
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  update-submodules:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout parent repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Update all submodules to latest
+        run: |
+          # Update all submodules to their latest commits on their default branches
+          git submodule update --remote --merge
+          
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No submodule updates found"
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Submodule updates detected"
+            git status
+          fi
+
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git add .
+          
+          # Create a detailed commit message
+          COMMIT_MSG="Update submodules to latest commits"
+          
+          # Add details about which submodules were updated
+          if git diff --cached --name-only | grep -q .; then
+            COMMIT_MSG="${COMMIT_MSG}
+
+Updated submodules:
+$(git diff --cached --name-only | sed 's/^/- /')"
+          fi
+          
+          git commit -m "$COMMIT_MSG"
+          git push origin main
+
+      - name: Create summary
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          echo "## Submodule Update Summary" >> $GITHUB_STEP_SUMMARY
+          echo "The following submodules were updated:" >> $GITHUB_STEP_SUMMARY
+          git log -1 --pretty=format:"- **Commit:** %H%n- **Date:** %cd%n- **Message:** %s" >> $GITHUB_STEP_SUMMARY
