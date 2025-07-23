@@ -13,3 +13,6 @@
 [submodule "langgraph_mastry"]
 	path = langgraph_mastry
 	url = https://github.com/rr4323/langgraph_mastry
+[submodule "agentic_chat"]
+	path = agentic_chat
+	url = https://github.com/rr4323/agentic_chat.git
