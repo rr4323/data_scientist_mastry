@@ -1,0 +1,28 @@
+name: Update Parent Repo
+
+on:
+  push:
+    branches:
+      - main  # or whatever branch you use
+permissions:
+  contents: write  # Give GITHUB_TOKEN write access
+jobs:
+  update-parent:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout parent repo submodule repo
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+
+      - name: Clone parent repo
+        run: |
+          git submodule update --remote --merge
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git add .
+          git commit -am "Update submodule to latest commit"
+          git push origin main
+
