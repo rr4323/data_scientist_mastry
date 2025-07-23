@@ -1,4 +1,4 @@
-- name: Checkout parent repositoryname: Update Parent Repo from Submodules
+name: Update Parent Repo from Submodules
 
 on:
   # Trigger when parent repo is pushed to main
