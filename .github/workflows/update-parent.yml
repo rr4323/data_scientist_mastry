@@ -19,7 +19,7 @@ jobs:
 
       - name: Clone parent repo
         run: |
-          git submodule update --remote --merge
+          git submodule update --remote --merge --allow-unrelated-histories
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
           git add .
