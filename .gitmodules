@@ -16,3 +16,6 @@
 [submodule "agentic_chat"]
 	path = agentic_chat
 	url = https://github.com/rr4323/agentic_chat.git
+[submodule "predict_intorvert"]
+	path = predict_intorvert
+	url = https://github.com/rr4323/predict_intorvert.git
